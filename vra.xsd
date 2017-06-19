@@ -1,0 +1,484 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.vraweb.org/vracore/4.0"
+    xmlns:vra="http://www.vraweb.org/vracore/4.0" xmlns:kc="http://ischool.uw.edu/colhtk/terms"
+    id="vra" xmlns:dct="http://purl.org/dc/terms/">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/03/xml.xsd" id="xml"/>
+    <xs:import namespace="http://ischool.uw.edu/colhtk/terms" schemaLocation="kellycolht-local.xsd"
+        id="kc"/>
+
+
+    <xs:import id="dct" namespace="http://purl.org/dc/terms/" schemaLocation="kellycolht-dc.xsd"/>
+    <xs:element name="vra" type="vra:vraType"/>
+    <xs:complexType name="vraType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="vra:image"/>
+            <xs:element maxOccurs="unbounded" ref="vra:work"/>
+            <xs:element maxOccurs="unbounded" ref="vra:collection" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="collection" type="vra:collectionRecordType"/>
+    <xs:complexType name="collectionRecordType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                    <xs:element maxOccurs="unbounded" minOccurs="1" ref="vra:work"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" ref="vra:image"/>
+                </xs:sequence>
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="work" type="vra:recordType"/>
+    <xs:element name="image" type="dct:imageRecordType"> </xs:element>
+    <xs:complexType name="imageType">
+        <xs:complexContent>
+            <xs:extension base="vra:recordType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="display" type="vra:basicString"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="recordType">
+        <xs:sequence minOccurs="0">
+            <xs:element ref="vra:titleSet" maxOccurs="2"/>
+            <xs:element ref="vra:agentSet" maxOccurs="unbounded"/>
+            <xs:element ref="vra:dateSet" maxOccurs="unbounded"/>
+            <xs:element ref="vra:descriptionSet" maxOccurs="2"/>
+            <xs:element ref="vra:locationSet"/>
+            <xs:element ref="vra:materialSet" maxOccurs="unbounded"/>
+            <xs:element ref="vra:measurementSet"/>
+            <xs:element ref="vra:sourceSet"/>
+            <xs:element ref="vra:subjectSet" maxOccurs="unbounded"/>
+            <xs:element ref="vra:workSet"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="agentSet" type="vra:agentSetType"/>
+    <xs:complexType name="agentSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="agent" type="vra:agentType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="agentType">
+        <xs:sequence>
+            <xs:element name="name" type="vra:nameType"/>
+            <xs:element name="culture">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="newAttribute"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="dates" type="vra:dateType"/>
+            <xs:element name="role" type="vra:roleType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="dateSet" type="vra:dateType"/>
+    <xs:complexType name="dateType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="date" type="vra:dateTypeType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="dateTypeType">
+        <xs:simpleContent>
+            <xs:extension base="xs:date">
+                <xs:attribute name="scheme"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="descriptionSet" type="vra:descriptionSetType"/>
+    <xs:complexType name="descriptionSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="description" type="vra:descriptionType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="descriptionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="source" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="locationSet" type="vra:locationSetType"/>
+    <xs:complexType name="locationSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="location" type="vra:usAddressType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="locationType">
+        <xs:sequence>
+            <xs:element name="name">
+                <xs:complexType>
+                    <xs:attributeGroup ref="vra:locationNameAttGroup"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="refID" type="vra:refID">
+                <xs:annotation>
+                    <xs:documentation>Remove? Location name should say it all...</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="materialSet" type="vra:materialSetType"/>
+    <xs:complexType name="materialSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element ref="kc:gardenMaterial"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="measurementSet">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="vra:measurementSetType">
+                    <xs:sequence/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="measurementSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="measurement">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                    <xs:attribute name="type" type="vra:measurementUnitType"/>
+                                    <xs:attribute name="unit">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:int">
+                                                <xs:totalDigits value="2"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:simpleType name="measurementUnitType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="area"/>
+            <xs:enumeration value="bit-Depth"/>
+            <xs:enumeration value="circumference"/>
+            <xs:enumeration value="other"/>
+            <xs:enumeration value="count"/>
+            <xs:enumeration value="height"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="sourceSet" type="vra:sourceSetType"/>
+    <xs:complexType name="sourceSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="source" type="vra:sourceType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="sourceType">
+        <xs:sequence>
+            <xs:element name="URL">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:anyURI">
+                            <xs:attribute ref="vra:href"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="name" type="vra:sourceNameType"/>
+        </xs:sequence>
+        <xs:attribute ref="vra:href"/>
+        <xs:attribute name="type" type="vra:sourceTypeType"/>
+    </xs:complexType>
+    <xs:simpleType name="sourceTypeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="official"/>
+            <xs:enumeration value="wikipedia"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="sourceNameType">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <!--
+    <xs:element name="stylePeriodSet" type="vra:stylePeriodSetType"/>
+    <xs:complexType name="stylePeriodSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="stylePeriod" type="vra:stylePeriodType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="stylePeriodType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attributeGroup ref="vra:VRAGlobalAttGroup"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType> -->
+
+    <xs:element name="subjectSet" type="vra:subjectSetType"/>
+    <xs:complexType name="subjectSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="term">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="vra:termType">
+                                    <xs:attribute ref="vra:vocab"/>
+                                    <xs:attribute name="type"/>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="termType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string"> </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="titleSet" type="vra:titleSetType"/>
+    <xs:complexType name="titleSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="title" type="vra:TitleType"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="TitleType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+                <xs:attribute name="type"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="titleTypeList">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="brandName"/>
+            <xs:enumeration value="cited"/>
+            <xs:enumeration value="creator"/>
+            <xs:enumeration value="descriptive"/>
+            <xs:whiteSpace value="preserve"/>
+            <xs:enumeration value="former"/>
+            <xs:enumeration value="inscribed"/>
+            <xs:enumeration value="owner"/>
+            <xs:enumeration value="popular"/>
+            <xs:enumeration value="repository"/>
+            <xs:enumeration value="translated"/>
+            <xs:enumeration value="other"/>
+            <xs:enumeration value="generalView"/>
+            <xs:enumeration value="partialView"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="workSet" type="vra:workSetType"/>
+    <xs:complexType name="workSetType">
+        <xs:complexContent>
+            <xs:extension base="vra:setType">
+                <xs:sequence>
+                    <xs:element name="workType" default="" type="vra:workType"> </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="workType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+                <xs:attribute ref="vra:refid"/>
+                <xs:attribute ref="vra:vocab"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:attributeGroup name="locationNameAttGroup">
+        <xs:attribute ref="vra:refid"/>
+        <xs:attribute ref="vra:extent"/>
+        <xs:attribute ref="xml:lang"/>
+        <xs:attribute ref="vra:locVocab"/>
+    </xs:attributeGroup>
+    <xs:attributeGroup name="VRAGlobalAttGroup">
+        <xs:attribute ref="vra:extent"/>
+        <xs:attribute ref="vra:href"/>
+        <xs:attribute ref="xml:lang"/>
+        <xs:attribute ref="vra:pref"/>
+        <xs:attribute ref="vra:source"/>
+    </xs:attributeGroup>
+    <xs:attribute name="dataDate" type="xs:date"/>
+    <xs:attribute name="extent" type="xs:string"/>
+    <xs:attribute name="href" type="xs:anyURI"/>
+    <xs:attribute name="refid" type="xs:string"/>
+    <xs:attribute name="pref" type="xs:string"/>
+    <xs:attribute name="source" type="xs:string"/>
+    <xs:attribute name="vocab" type="xs:string"/>
+    <xs:complexType name="textType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="type" type="vra:textTypeList"/>
+                <xs:attribute ref="xml:lang"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="display">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute ref="xml:lang"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="vraUnitAttGroup">
+        <xs:attribute name="id" type="xs:string"/>
+        <xs:attribute ref="vra:refid"/>
+        <xs:attribute ref="vra:source"/>
+    </xs:attributeGroup>
+    <xs:attribute name="locVocab">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="TGN"/>
+                <xs:enumeration value="BHA"/>
+                <xs:enumeration value="index"/>
+                <xs:enumeration value="LCSH"/>
+                <xs:enumeration value="Grove Dictionary of Art Location Appendix"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:complexType name="setType">
+        <xs:sequence>
+            <xs:element ref="vra:display"/>
+            <xs:element ref="vra:notes"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="basicString">
+        <xs:annotation>
+            <xs:documentation> Basic datatype for all freetext values. Allows assignment of source,
+                vocabulary, refid and language attributes to virtually any value.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="notes" type="vra:basicString"/>
+
+    <xs:attributeGroup name="vraAttributes">
+        <xs:annotation>
+            <xs:documentation> VRA Core metadata attributes which can be applied to virtually any
+                element. Note that xml:lang should contain ISO 639 language codes, not the English
+                names of languages. Although the XML Schema defines xml:lang as allowing ISO 639-2
+                (three-letter) codes, some validators will only accept ISO 639-1 (two-letter) codes.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="extent" type="xs:string"/>
+        <xs:attribute name="href" type="xs:anyURI"/>
+        <xs:attribute ref="xml:lang"/>
+        <xs:attribute name="pref" type="xs:boolean"/>
+        <xs:attribute name="refid" type="xs:string"/>
+        <xs:attribute name="rules" type="xs:string"/>
+        <xs:attribute name="source" type="xs:string"/>
+        <xs:attribute name="vocab" type="xs:string"/>
+    </xs:attributeGroup>
+    <xs:complexType name="nameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="type" type="vra:nameTypeList"/>
+                <xs:attribute name="vocabRefID" type="xs:string"/>
+                <xs:attribute name="vocab" type="xs:string"/>
+                <xs:attribute name="dataDate" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="textTypeList">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="signature"/>
+            <xs:enumeration value="caption"/>
+            <xs:enumeration value="mark"/>
+            <xs:enumeration value="date"/>
+            <xs:enumeration value="text"/>
+            <xs:enumeration value="translation"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="roleType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="vra:vocab"/>
+                <xs:attribute ref="vra:refid"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="refID">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="accession"/>
+            <xs:enumeration value="barcode"/>
+            <xs:enumeration value="shelfList"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="nameTypeList">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="personal"/>
+            <xs:enumeration value="corporate"/>
+            <xs:enumeration value="family"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="authorType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute default="ULAN" ref="vra:vocab"/>
+                <xs:attribute ref="vra:refid"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="usAddressType">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="street" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="state" type="xs:string"/>
+            <xs:element name="zip" type="xs:decimal"/>
+        </xs:sequence>
+        <xs:attribute fixed="US" name="country" type="xs:NMTOKEN"/>
+    </xs:complexType>
+</xs:schema>

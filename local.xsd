@@ -1,0 +1,82 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://ischool.uw.edu/colhtk/terms"
+    xmlns:kc="http://ischool.uw.edu/colhtk/terms" xmlns:vra="http://www.vraweb.org/vracore/4.0">
+
+    <xs:import namespace="http://www.vraweb.org/vracore/4.0" schemaLocation="kellycolht-vra.xsd"
+        id="vra"/>
+    <xs:complexType name="gardensType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="garden">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="vra:vraType">
+                            <xs:attribute name="id" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="gardenMaterial" type="kc:gardenMaterialType"> </xs:element>
+    <xs:complexType name="gardenMaterialType">
+        <xs:choice>
+            <xs:element ref="kc:natural"/>
+            <xs:element maxOccurs="unbounded" ref="kc:manMade"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:element name="natural">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="vra:setType">
+                    <xs:sequence>
+                        <xs:element name="name">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute ref="vra:vocab"/>
+                                        <xs:attribute ref="vra:refid"/>
+                                        <xs:attribute name="type" type="kc:naturalNameType"/>
+                                        <xs:attribute name="id" type="xs:string"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="manMade">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="vra:setType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="name">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute ref="vra:vocab"/>
+                                        <xs:attribute ref="vra:refid"/>
+                                        <xs:attribute name="id" type="xs:string" use="optional"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="gardenMaterialsType">
+        <xs:choice>
+            <xs:element ref="kc:manMade"/>
+            <xs:element ref="kc:natural"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:simpleType name="naturalNameType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="scientific"/>
+            <xs:enumeration value="common"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

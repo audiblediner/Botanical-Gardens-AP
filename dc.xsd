@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://purl.org/dc/terms/" xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:vra="http://www.vraweb.org/vracore/4.0">
+    <xs:import namespace="http://www.vraweb.org/vracore/4.0" schemaLocation="kellycolht-vra.xsd"/>
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+    <xs:complexType name="imageRecordType">
+        <xs:sequence>
+            <xs:element ref="dct:title"/>
+            <xs:element ref="dct:source"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:element name="title">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="vra:setType">
+                    <xs:sequence>
+                        <xs:element name="imageTitle" type="dct:titleType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="titleType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="lang"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:element name="source">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="vra:setType">
+                    <xs:sequence>
+                        <xs:element name="imageSource" type="dct:sourceType"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="sourceType">
+        <xs:sequence>
+            <xs:element name="URL">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:anyURI">
+                            <xs:attribute name="dateLastAccessed" type="xs:date"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="siteName">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="lang"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

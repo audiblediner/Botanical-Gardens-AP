@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gardenCollection xmlns="http://www.vraweb.org/vracore/4.0"
+ xmlns:kc="http://ischool.uw.edu/colhtk/terms"
+ xmlns:dct="http://purl.org/dc/terms/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:vra="http://www.vraweb.org/vracore/4.0">
+     <kc:garden id="g1">
+        <image id="g1-i">
+            <dct:title>
+                <display xml:lang="es-US">Huntsville Botanical Garden</display>
+                <notes/>
+                <dct:imageTitle xml:lang="en-US">>File:Huntsville_Botanical_Garden.jpg</dct:imageTitle>
+            </dct:title>
+            <dct:source>
+                <display xml:lang="en-US">From Wikimedia Commons</display>
+                <notes/>
+                <dct:imageSource>
+                    <dct:URL dateLastAccessed="2015-11-20Z">https://commons.wikimedia.org/wiki/File:Huntsville_Botanical_Garden.jpg</dct:URL>
+                    <dct:siteName lang="TK4_b">Wikimedia Commons</dct:siteName>
+                </dct:imageSource>
+            </dct:source>
+        </image>
+        <work id="g1-w">
+            <titleSet>
+                <display xml:lang="en-EN">Huntsville Botanical Garden, Alabama</display>
+                <notes/>
+                <title xml:lang="en-EN">Huntsville Botanical Garden</title>
+            </titleSet>
+            <agentSet>
+                <display xml:lang="en-EN">The Huntsville-Madison County Botanical Garden Society</display>
+                <notes/>
+                <agent>
+                    <name type="non-profit">Huntsville-Madison County Botanical Garden Society</name>
+                    <dates>
+                        <display xml:lang="es-ES">The Huntsville-Madison County Botanical Garden Society incorporated in 1981</display>
+                        <notes/>
+                        <date scheme="ISO 8601" type="incorporatedOn">1981</date>
+                    </dates>
+                    <role>steward</role>
+                  </agent>
+            </agentSet>
+            <dateSet>
+                <display xml:lang="en-US">The Garden opened to the public on May 21, 1988</display>
+                <notes/>
+                <date type="dateOpened" scheme="ISO 8601">1988-05-21Z</date>
+            </dateSet>
+            <descriptionSet>
+                <display xml:lang="en-US">Our Garden will achieve world-class recognition by balancing year-round botanical displays, strong educational programs and specialized research. The unique aspect of our Garden will be the blending of traditional botanical garden elements, the aesthetic heritage of our region, the conservation of our natural resources, and our thrust into the future.</display>
+                <notes>Official site does not provide a good paragraph long description, so I used their mission statement.</notes>
+                <description source="http://www.hsvbg.org">Our Garden will achieve world-class recognition by balancing year-round botanical displays, strong educational programs and specialized research. The unique aspect of our Garden will be the blending of traditional botanical garden elements, the aesthetic heritage of our region, the conservation of our natural resources, and our thrust into the future.</description>
+            </descriptionSet>                   
+            <locationSet>
+             
+                <display xml:lang="en-US">Huntsville Botanical Garden is located in Huntsville, AL.</display>
+                <notes/>
+                
+                <vra:location country="US">
+                    <vra:name>Huntsville Botanical Garden</vra:name>
+                    <vra:street>4747 Bob Wallace Avenue</vra:street>
+                    <vra:city>Huntsville</vra:city>
+                    <vra:state>AL</vra:state>
+                    <vra:zip>35805</vra:zip>
+                </vra:location>             
+             
+                
+            </locationSet>
+            <materialSet>
+                <display xml:lang="he-IL">N0P4y</display>
+                <notes/>
+                <kc:gardenMaterial>
+                    <kc:manMade>
+                        <display xml:lang="en-US">Fish Pond</display>
+                        <notes/>
+                        <kc:name vra:vocab="AAT" vra:refid="300008689">fish pond</kc:name>
+                    </kc:manMade>
+                    <kc:natural>
+                        <vra:display xml:lang="en-US">hellebores (helleborus)</vra:display>
+                        <vra:notes>Need to ref to plant CV</vra:notes>
+                        <kc:name type="scientific">helleborus</kc:name>
+                        <kc:name type="common">hellebores</kc:name>
+                    </kc:natural>
+                </kc:gardenMaterial>
+            </materialSet>
+            <measurementSet xmlns:vra="http://www.vraweb.org/vracore/4.0" type="total" unit="acreage">
+                <display xml:lang="en-US">112 acres</display>
+                <notes/>
+            </measurementSet>
+            <sourceSet>
+                <display xml:lang="Official Site for Huntsville Botanical Gardens"></display>
+                <notes/>                            
+                    <source vra:href="http://www.hsvbg.org/" type="official">
+                        <URL vra:href="http://www.oxygenxml.com/">http://www.oxygenxml.com/</URL>
+                        <name>Huntsville Botanical Gardens Official Site</name> 
+                    </source>
+            </sourceSet>
+            <workTypeSet>
+                <display xml:lang="en-US">Garden</display>
+                <notes/>
+                <workType xmlns:vra="http://www.vraweb.org/vracore/4.0" vra:refid="300008090" vra:vocab="AAT" xml:lang="en-US">gardens (open spaces)</workType>
+            </workTypeSet>
+        </work>           
+    </kc:garden>   
+</gardenCollection>
